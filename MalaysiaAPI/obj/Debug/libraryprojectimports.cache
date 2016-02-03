@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Paths>
+  <Jars></Jars>
+  <ResolvedResourceDirectories>
+    <ResolvedResourceDirectory>E:\AndroidProjects\MalaysiaAPI2\MalaysiaAPI\MalaysiaAPI\obj\Debug\__library_projects__\Xamarin.Android.Support.v4\library_project_imports\res</ResolvedResourceDirectory>
+    <ResolvedResourceDirectory>E:\AndroidProjects\MalaysiaAPI2\MalaysiaAPI\MalaysiaAPI\obj\Debug\__library_projects__\Xamarin.Insights\library_project_imports\res</ResolvedResourceDirectory>
+  </ResolvedResourceDirectories>
+  <ResolvedAssetDirectories>
+    <ResolvedAssetDirectory>E:\AndroidProjects\MalaysiaAPI2\MalaysiaAPI\MalaysiaAPI\obj\Debug\__library_projects__\Xamarin.Android.Support.v4\library_project_imports\assets</ResolvedAssetDirectory>
+    <ResolvedAssetDirectory>E:\AndroidProjects\MalaysiaAPI2\MalaysiaAPI\MalaysiaAPI\obj\Debug\__library_projects__\Xamarin.Insights\library_project_imports\assets</ResolvedAssetDirectory>
+  </ResolvedAssetDirectories>
+  <ResolvedEnvironmentFiles />
+  <ResolvedResourceDirectoryStamps>
+    <ResolvedResourceDirectoryStamp>E:\AndroidProjects\MalaysiaAPI2\MalaysiaAPI\MalaysiaAPI\obj\Debug\__library_projects__\Xamarin.Android.Support.v4.stamp</ResolvedResourceDirectoryStamp>
+    <ResolvedResourceDirectoryStamp>E:\AndroidProjects\MalaysiaAPI2\MalaysiaAPI\MalaysiaAPI\obj\Debug\__library_projects__\Xamarin.Insights.stamp</ResolvedResourceDirectoryStamp>
+  </ResolvedResourceDirectoryStamps>
+</Paths>
