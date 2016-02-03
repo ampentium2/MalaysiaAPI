@@ -164,9 +164,10 @@ namespace MalaysiaAPI
 				string stateString = string.Format("State: {0}",settingsConfigSplit [0]);
 				string regionString = string.Format("Region: {0}",settingsConfigSplit [1]);
 
-				TextView state = FindViewById<TextView> (Resource.Id.stateTxt);
+				state = FindViewById<TextView> (Resource.Id.stateTxt);
 				TextView region = FindViewById<TextView> (Resource.Id.regionTxt);
-				state.SetText (stateString, TextView.BufferType.Normal);
+//				state.SetText (stateString, TextView.BufferType.Normal);
+				state.Text = stateString;
 				region.SetText (regionString, TextView.BufferType.Normal);
 			}
 		}
@@ -199,7 +200,9 @@ namespace MalaysiaAPI
 
 			htmlDoc = await htmlWeb.LoadFromWebAsync ("http://apims.doe.gov.my/v2/hour2_2016-02-03.html");
 
-			var table = htmlDoc.DocumentNode.Descendants ("td");
+			var div = htmlDoc.GetElementbyId ("content");
+			var table = div.Element ("table");
+			state.Text = div == null ? "null" : div.InnerHtml.ToString ();
 			int a = 5;
 		}
 	}
