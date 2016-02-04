@@ -198,11 +198,13 @@ namespace MalaysiaAPI
 			HtmlWeb htmlWeb = new HtmlWeb ();
 			HtmlDocument htmlDoc = new HtmlDocument ();
 
-			htmlDoc = await htmlWeb.LoadFromWebAsync ("http://apims.doe.gov.my/v2/hour2_2016-02-03.html");
+			htmlDoc = await htmlWeb.LoadFromWebAsync("http://apims.doe.gov.my/v2/hour2_2016-02-03.html");
 
 			var div = htmlDoc.GetElementbyId ("content");
-			var table = div.Element ("table");
-			state.Text = div == null ? "null" : div.InnerHtml.ToString ();
+			var table = div.Descendants ("table").ToList()[0].ChildNodes.ToList();
+			var rowEntry = table [3].ChildNodes.ToList ();
+			var stateEntry = rowEntry [0].InnerText.ToString ();
+//			state.Text = div == null ? "null" : table.ToString ();
 			int a = 5;
 		}
 	}
