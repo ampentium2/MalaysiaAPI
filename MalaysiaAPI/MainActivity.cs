@@ -114,7 +114,7 @@ namespace MalaysiaAPI
 			_locationTxt = FindViewById<TextView> (Resource.Id.locationTxt);
 
 			InitLocationManager ();
-			HTMLDownload ();
+			HTMLDownload ("Johor");
 		}
 
 		void InitLocationManager()
@@ -193,19 +193,47 @@ namespace MalaysiaAPI
 			}
 		}
 
-		async void HTMLDownload ()
+		async void HTMLDownload (string stateRequested)
 		{
 			HtmlWeb htmlWeb = new HtmlWeb ();
 			HtmlDocument htmlDoc = new HtmlDocument ();
+			List<string> regionEntry = new List<string> ();
+			DateTime currentDateTime = DateTime.Now;
+			TimeSpan currentTime = currentDateTime.TimeOfDay;
 
-			htmlDoc = await htmlWeb.LoadFromWebAsync("http://apims.doe.gov.my/v2/hour2_2016-02-03.html");
+			string hourRegion = string.Empty;
+			string currentDay = currentTime.Hours == 0 ? (currentDateTime.Day - 1).ToString () : currentDateTime.Day.ToString ();
+			string date = currentDateTime.Year.ToString () + "-" + currentDateTime.Month.ToString () + "-" + currentDay;
+			int currentHour = currentTime.Hours == 0 ? 24 : currentTime.Hours;
+
+			if (currentHour > 0 && currentHour <= 6) { hourRegion = "hour1"; }
+			else if (currentHour > 6 && currentHour <= 12) { hourRegion = "hour2"; }
+			else if (currentHour > 12 && currentHour <= 18) { hourRegion = "hour3"; }
+			else if (currentHour > 18 && currentHour <= 24) { hourRegion = "hour4"; }
+
+			string urlConstruct = "http://apims.doe.gov.my/v2/" + hourRegion + "_" + date + ".html";
+
+			//Now it fetch the right html based on current date and time
+			//What's next: map the hours through list entry [0] - [8], fetch the index based on which hour we are in.
+
+			htmlDoc = await htmlWeb.LoadFromWebAsync(urlConstruct);
 
 			var div = htmlDoc.GetElementbyId ("content");
 			var table = div.Descendants ("table").ToList()[0].ChildNodes.ToList();
-			var rowEntry = table [3].ChildNodes.ToList ();
-			var stateEntry = rowEntry [0].InnerText.ToString ();
-//			state.Text = div == null ? "null" : table.ToString ();
-			int a = 5;
+//			var rowEntry = table [3].ChildNodes.ToList ();
+//			var stateEntry = rowEntry [0].InnerText.ToString ();
+
+			foreach (var tableEntry in table)
+			{
+				if (tableEntry.HasChildNodes) {
+					var rowEntry = tableEntry.ChildNodes.ToList ();
+					var stateEntry = rowEntry [0].InnerText.ToString ();
+					if (stateEntry == stateRequested) {
+						regionEntry.Add (rowEntry [2].InnerText.ToString ());
+						int a = 5;
+					}
+				}
+			}
 		}
 	}
 }

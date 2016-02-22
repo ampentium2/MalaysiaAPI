@@ -2,21 +2,25 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Android.TestDevice" />
   <MonoDevelop.Ide.Workbench ActiveDocument="MalaysiaAPI\MainActivity.cs">
     <Files>
-      <File FileName="MalaysiaAPI\MainActivity.cs" Line="203" Column="49" />
+      <File FileName="MalaysiaAPI\MainActivity.cs" Line="217" Column="109" />
       <File FileName="MalaysiaAPI\SettingsActivity.cs" Line="1" Column="1" />
       <File FileName="MalaysiaAPI\Resources\values\Strings.xml" Line="1" Column="1" />
       <File FileName="MalaysiaAPI\Resources\Resource.designer.cs" Line="1" Column="1" />
-      <File FileName="MalaysiaAPI\Properties\AndroidManifest.xml" Line="7" Column="12" />
+      <File FileName="MalaysiaAPI\Properties\AndroidManifest.xml" Line="1" Column="1" />
       <File FileName="MalaysiaAPI\CoreCodeModel.cs" Line="1" Column="1" />
-      <File FileName="MalaysiaAPI\Properties\AssemblyInfo.cs" Line="20" Column="1" />
-      <File FileName="packages\HtmlAgilityPack.1.4.9\readme.txt" Line="18" Column="1" />
+      <File FileName="MalaysiaAPI\Properties\AssemblyInfo.cs" Line="1" Column="1" />
+      <File FileName="packages\HtmlAgilityPack.1.4.9\readme.txt" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="E:\AndroidProjects\MalaysiaAPI2\MalaysiaAPI\MalaysiaAPI\MainActivity.cs" line="206" column="11" />
+      <Breakpoint file="E:\AndroidProjects\MalaysiaAPI2\MalaysiaAPI\MalaysiaAPI\MainActivity.cs" line="219" column="57" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches>
+    <Watch file="MalaysiaAPI\MainActivity.cs" line="201" offsetX="494" offsetY="3213" expression="currentTime" liveUpdate="False" />
+    <Watch file="MalaysiaAPI\MainActivity.cs" line="201" offsetX="478" offsetY="3187" expression="currentDateTime" liveUpdate="False" />
+    <Watch file="MalaysiaAPI\MainActivity.cs" line="205" offsetX="1047" offsetY="3264" expression="date" liveUpdate="False" />
+  </MonoDevelop.Ide.DebuggingService.PinnedWatches>
   <MonoDevelop.Ide.ItemProperties.MalaysiaAPI AndroidDesignerPreferredDevice="Nexus 4" />
 </Properties>

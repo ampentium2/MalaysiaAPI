@@ -1,6 +1,4 @@
 E:\AndroidProjects\MalaysiaAPI2\MalaysiaAPI\MalaysiaAPI\obj\Debug\MalaysiaAPI.csprojResolveAssemblyReference.cache
-E:\AndroidProjects\MalaysiaAPI2\MalaysiaAPI\MalaysiaAPI\obj\Debug\res\drawable\monoandroidsplash.png
-E:\AndroidProjects\MalaysiaAPI2\MalaysiaAPI\MalaysiaAPI\obj\Debug\res\values\styles.xml
 E:\AndroidProjects\MalaysiaAPI2\MalaysiaAPI\MalaysiaAPI\bin\Debug\MalaysiaAPI.dll
 E:\AndroidProjects\MalaysiaAPI2\MalaysiaAPI\MalaysiaAPI\bin\Debug\MalaysiaAPI.pdb
 E:\AndroidProjects\MalaysiaAPI2\MalaysiaAPI\MalaysiaAPI\bin\Debug\com.rldigital.malaysiaapi.apk
@@ -38,5 +36,7 @@ E:\AndroidProjects\MalaysiaAPI2\MalaysiaAPI\MalaysiaAPI\obj\Debug\res\mipmap-xxx
 E:\AndroidProjects\MalaysiaAPI2\MalaysiaAPI\MalaysiaAPI\bin\Debug\HtmlAgilityPack.dll
 E:\AndroidProjects\MalaysiaAPI2\MalaysiaAPI\MalaysiaAPI\bin\Debug\HtmlAgilityPack.pdb
 E:\AndroidProjects\MalaysiaAPI2\MalaysiaAPI\MalaysiaAPI\bin\Debug\HtmlAgilityPack.dll.mdb
+E:\AndroidProjects\MalaysiaAPI2\MalaysiaAPI\MalaysiaAPI\obj\Debug\res\drawable\monoandroidsplash.png
+E:\AndroidProjects\MalaysiaAPI2\MalaysiaAPI\MalaysiaAPI\obj\Debug\res\values\styles.xml
 E:\AndroidProjects\MalaysiaAPI2\MalaysiaAPI\MalaysiaAPI\obj\Debug\MalaysiaAPI.dll.mdb
 E:\AndroidProjects\MalaysiaAPI2\MalaysiaAPI\MalaysiaAPI\bin\Debug\MalaysiaAPI.dll.mdb
