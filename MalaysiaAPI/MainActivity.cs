@@ -36,7 +36,9 @@ namespace MalaysiaAPI
 		Location _currentLocation;
 		LocationManager _locationManager;
 		TextView state;
+		TextView region;
 		Address address;
+		TextView lvlIndicator;
 
 		string _locationProvider;
 		TextView _locationTxt;
@@ -81,9 +83,9 @@ namespace MalaysiaAPI
 
 			//Our App starts here
 			ImageButton setButton = FindViewById<ImageButton> (Resource.Id.set_button);
-			TextView lvlIndicator = FindViewById<TextView> (Resource.Id.lvlVal);
+			lvlIndicator = FindViewById<TextView> (Resource.Id.lvlVal);
 			state = FindViewById<TextView> (Resource.Id.stateTxt);
-			TextView region = FindViewById<TextView> (Resource.Id.regionTxt);
+			region = FindViewById<TextView> (Resource.Id.regionTxt);
 
 			string stateString = string.Format ("State: ");
 //			state.SetText (stateString, TextView.BufferType.Normal);
@@ -200,21 +202,20 @@ namespace MalaysiaAPI
 			List<string> regionEntry = new List<string> ();
 			DateTime currentDateTime = DateTime.Now;
 			TimeSpan currentTime = currentDateTime.TimeOfDay;
+			int hourIndex = 3;
+			List<string> latestAPI = new List<string> ();
 
 			string hourRegion = string.Empty;
 			string currentDay = currentTime.Hours == 0 ? (currentDateTime.Day - 1).ToString () : currentDateTime.Day.ToString ();
-			string date = currentDateTime.Year.ToString () + "-" + currentDateTime.Month.ToString () + "-" + currentDay;
+			string date = currentDateTime.Year.ToString () + "-" + currentDateTime.Month.ToString ("D2") + "-" + currentDay;
 			int currentHour = currentTime.Hours == 0 ? 24 : currentTime.Hours;
 
-			if (currentHour > 0 && currentHour <= 6) { hourRegion = "hour1"; }
-			else if (currentHour > 6 && currentHour <= 12) { hourRegion = "hour2"; }
-			else if (currentHour > 12 && currentHour <= 18) { hourRegion = "hour3"; }
-			else if (currentHour > 18 && currentHour <= 24) { hourRegion = "hour4"; }
+			if (currentHour > 0 && currentHour <= 6) { hourRegion = "hour1"; hourIndex += currentHour - 1; }
+			else if (currentHour > 6 && currentHour <= 12) { hourRegion = "hour2"; hourIndex += (currentHour - 6 - 1); }
+			else if (currentHour > 12 && currentHour <= 18) { hourRegion = "hour3"; hourIndex += (currentHour - 12 - 1);}
+			else if (currentHour > 18 && currentHour <= 24) { hourRegion = "hour4"; hourIndex += (currentHour - 18 - 1);}
 
 			string urlConstruct = "http://apims.doe.gov.my/v2/" + hourRegion + "_" + date + ".html";
-
-			//Now it fetch the right html based on current date and time
-			//What's next: map the hours through list entry [0] - [8], fetch the index based on which hour we are in.
 
 			htmlDoc = await htmlWeb.LoadFromWebAsync(urlConstruct);
 
@@ -230,9 +231,17 @@ namespace MalaysiaAPI
 					var stateEntry = rowEntry [0].InnerText.ToString ();
 					if (stateEntry == stateRequested) {
 						regionEntry.Add (rowEntry [2].InnerText.ToString ());
-						int a = 5;
+						latestAPI.Add(rowEntry [hourIndex].InnerText.ToString ());
 					}
 				}
+			}
+
+			foreach (string regionGrabbed in regionEntry) {
+				region.Text += (regionGrabbed + ",");
+			}
+
+			foreach (string latesAPIGrabbed in latestAPI) {
+				lvlIndicator.Text += (latesAPIGrabbed + ",");
 			}
 		}
 	}
