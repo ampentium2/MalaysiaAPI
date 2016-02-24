@@ -28,8 +28,8 @@ namespace MalaysiaAPI
 		 */
 
 		//Revise these values
-		int lowLvl = 25;
-		int medLvl = 50;
+//		int lowLvl = 25;
+//		int medLvl = 50;
 
 		static readonly string TAG = "X:" + typeof(MainActivity).Name;
 		TextView _addressTxt;
@@ -38,7 +38,11 @@ namespace MalaysiaAPI
 		TextView state;
 		TextView region;
 		Address address;
-		TextView lvlIndicator;
+//		TextView lvlIndicator;
+		GridLayout mainLayout;
+		List<string> regionEntry = new List<string> ();
+		List<string> latestAPI = new List<string> ();
+		int lastId;
 
 		string _locationProvider;
 		TextView _locationTxt;
@@ -50,7 +54,7 @@ namespace MalaysiaAPI
 				_locationTxt.Text = "Unable to determine your location";
 			} else {
 				_locationTxt.Text = string.Format ("{0:f6},{1:f6}", _currentLocation.Latitude, _currentLocation.Longitude);
-				Log.Debug(TAG, string.Format ("{0:f6},{1:f6}", _currentLocation.Latitude, _currentLocation.Longitude));
+				Log.Debug (TAG, string.Format ("{0:f6},{1:f6}", _currentLocation.Latitude, _currentLocation.Longitude));
 				address = await ReverseGeocodeCurrentLocation ();
 
 				if (address == null) {
@@ -60,6 +64,10 @@ namespace MalaysiaAPI
 				}
 
 				DisplayAddress (address);
+
+				//Remove textviews first and create new textviews
+//				HTMLDownload(address.GetAddressLine (address.MaxAddressLineIndex - 1)); //For debug in emulator only
+				HTMLDownload ("Pulau Pinang");
 			}
 		}
 
@@ -83,26 +91,27 @@ namespace MalaysiaAPI
 
 			//Our App starts here
 			ImageButton setButton = FindViewById<ImageButton> (Resource.Id.set_button);
-			lvlIndicator = FindViewById<TextView> (Resource.Id.lvlVal);
+//			lvlIndicator = FindViewById<TextView> (Resource.Id.lvlVal);
 			state = FindViewById<TextView> (Resource.Id.stateTxt);
 			region = FindViewById<TextView> (Resource.Id.regionTxt);
+			mainLayout = FindViewById<GridLayout> (Resource.Id.gridLayout1);
 
 			string stateString = string.Format ("State: ");
 //			state.SetText (stateString, TextView.BufferType.Normal);
 			state.Text = stateString;
-			int lvlInt = Convert.ToInt32(lvlIndicator.Text);
-			var blue = Android.Graphics.Color.Argb (255, 0, 0, 153);
-			var green = Android.Graphics.Color.Argb (255, 0, 153, 0);
-			var red = Android.Graphics.Color.Argb (255, 153, 0, 0);
-			if (lvlInt < lowLvl) {
-				lvlIndicator.SetBackgroundColor(blue);
-			}
-			else if (lvlInt < medLvl && lvlInt > lowLvl) {
-				lvlIndicator.SetBackgroundColor(green);
-			}
-			else if (lvlInt > medLvl) {
-				lvlIndicator.SetBackgroundColor (red);
-			}
+//			int lvlInt = Convert.ToInt32(lvlIndicator.Text);
+//			var blue = Android.Graphics.Color.Argb (255, 0, 0, 153);
+//			var green = Android.Graphics.Color.Argb (255, 0, 153, 0);
+//			var red = Android.Graphics.Color.Argb (255, 153, 0, 0);
+//			if (lvlInt < lowLvl) {
+//				lvlIndicator.SetBackgroundColor(blue);
+//			}
+//			else if (lvlInt < medLvl && lvlInt > lowLvl) {
+//				lvlIndicator.SetBackgroundColor(green);
+//			}
+//			else if (lvlInt > medLvl) {
+//				lvlIndicator.SetBackgroundColor (red);
+//			}
 
 			setButton.Click += delegate {
 				var intent = new Intent(this, typeof(SettingsActivity));
@@ -116,7 +125,15 @@ namespace MalaysiaAPI
 			_locationTxt = FindViewById<TextView> (Resource.Id.locationTxt);
 
 			InitLocationManager ();
-			HTMLDownload ("Johor");
+//			HTMLDownload ("Johor");
+
+//			TextView experimentText = new TextView (this);
+//			experimentText.Text = "Experiment Text";
+//			experimentText.SetX (1);
+//			experimentText.SetY (7);
+//
+//			mainLayout.AddView (experimentText);
+//			mainLayout.RemoveView (experimentText);
 		}
 
 		void InitLocationManager()
@@ -199,11 +216,12 @@ namespace MalaysiaAPI
 		{
 			HtmlWeb htmlWeb = new HtmlWeb ();
 			HtmlDocument htmlDoc = new HtmlDocument ();
-			List<string> regionEntry = new List<string> ();
 			DateTime currentDateTime = DateTime.Now;
 			TimeSpan currentTime = currentDateTime.TimeOfDay;
 			int hourIndex = 3;
-			List<string> latestAPI = new List<string> ();
+
+			regionEntry.Clear ();
+			latestAPI.Clear();
 
 			string hourRegion = string.Empty;
 			string currentDay = currentTime.Hours == 0 ? (currentDateTime.Day - 1).ToString () : currentDateTime.Day.ToString ();
@@ -236,13 +254,41 @@ namespace MalaysiaAPI
 				}
 			}
 
-			foreach (string regionGrabbed in regionEntry) {
-				region.Text += (regionGrabbed + ",");
+			int id = 1000;
+			int y = 4;
+			int x = 1;
+
+			for (int index = 1000; index <= lastId; index++) {
+				TextView removeTxtView = FindViewById<TextView> (index);
+				mainLayout.RemoveView (removeTxtView);
 			}
 
-			foreach (string latesAPIGrabbed in latestAPI) {
-				lvlIndicator.Text += (latesAPIGrabbed + ",");
+			foreach (var regionGrabbed in regionEntry) {
+				TextView valueText = new TextView (this);
+
+				valueText.Id = id + regionEntry.IndexOf (regionGrabbed);
+				int regionIndex = regionEntry.IndexOf (regionGrabbed);
+				string regionText = regionGrabbed.ToString ();
+				string value = latestAPI [regionEntry.IndexOf (regionGrabbed)];
+
+				valueText.Text = regionText + ": " + value;
+
+				//TODO: Set column and row appropriately instead of append
+				GridLayout.LayoutParams layoutParam = new GridLayout.LayoutParams ();
+				layoutParam.RowSpec = new GridLayout.Spec (1, GridLayout.Center);
+
+
+				mainLayout.AddView (valueText,layoutParam);
 			}
+			lastId = id + regionEntry.Count();
+
+//			foreach (string regionGrabbed in regionEntry) {
+//				region.Text += (regionGrabbed + ",");
+//			}
+//
+//			foreach (string latesAPIGrabbed in latestAPI) {
+//				lvlIndicator.Text += (latesAPIGrabbed + ",");
+//			}
 		}
 	}
 }

@@ -37,7 +37,7 @@
         p1:layout_marginLeft="70dp"
         p1:gravity="center_horizontal"
         p1:id="@+id/regionTxt" />
-    <TextView
+<!--    <TextView
         p1:id="@+id/lvlVal"
         p1:layout_row="4"
         p1:layout_column="1"
@@ -52,7 +52,7 @@
         p1:paddingBottom="50dp"
         p1:paddingLeft="50dp"
         p1:paddingStart="5dp"
-        p1:paddingEnd="5dp" />
+        p1:paddingEnd="5dp" /> -->
 <!-- txtview location and address is only for debug purposes -->
     <TextView
         p1:id="@+id/locationTxt"
