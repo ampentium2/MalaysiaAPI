@@ -13,4 +13,4 @@
         p1:paddingBottom="50dp"
         p1:paddingLeft="50dp"
         p1:paddingStart="5dp"
-        p1:paddingEnd="5dp" /> --><!-- txtview location and address is only for debug purposes --><TextView p1:id="@+id/locationTxt" p1:layout_row="5" p1:layout_column="1" p1:text="Location: " /><TextView p1:id="@+id/AddressTxt" p1:layout_row="6" p1:layout_column="1" p1:text="Address: " /><ImageButton p1:id="@+id/set_button" p1:src="@mipmap/ic_settings" p1:layout_row="7" p1:layout_column="0" p1:visibility="visible" p1:layerType="none" p1:background="#00ffffff" p1:alpha="255" /></GridLayout>
+        p1:paddingEnd="5dp" /> --><!-- txtview location and address is only for debug purposes --><TextView p1:id="@+id/locationTxt" p1:layout_row="7" p1:layout_column="1" p1:text="Location: " /><TextView p1:id="@+id/AddressTxt" p1:layout_row="8" p1:layout_column="1" p1:text="Address: " /><ImageButton p1:id="@+id/set_button" p1:src="@mipmap/ic_settings" p1:layout_row="9" p1:layout_column="0" p1:visibility="visible" p1:layerType="none" p1:background="#00ffffff" p1:alpha="255" /></GridLayout>

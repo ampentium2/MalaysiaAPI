@@ -66,8 +66,8 @@ namespace MalaysiaAPI
 				DisplayAddress (address);
 
 				//Remove textviews first and create new textviews
-//				HTMLDownload(address.GetAddressLine (address.MaxAddressLineIndex - 1)); //For debug in emulator only
-				HTMLDownload ("Pulau Pinang");
+				HTMLDownload(address.GetAddressLine (address.MaxAddressLineIndex - 1)); //For debug in emulator only
+//				HTMLDownload ("Pulau Pinang");
 			}
 		}
 
@@ -275,7 +275,8 @@ namespace MalaysiaAPI
 
 				//TODO: Set column and row appropriately instead of append
 				GridLayout.LayoutParams layoutParam = new GridLayout.LayoutParams ();
-				layoutParam.RowSpec = new GridLayout.Spec (1, GridLayout.Center);
+				layoutParam.RowSpec = GridLayout.InvokeSpec (y + regionIndex, GridLayout.BaselineAlighment);
+				layoutParam.ColumnSpec = GridLayout.InvokeSpec (x, GridLayout.Center);
 
 
 				mainLayout.AddView (valueText,layoutParam);
