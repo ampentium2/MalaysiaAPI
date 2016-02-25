@@ -13,6 +13,7 @@ using Android.Widget;
 using Android.OS;
 using Android.Util;
 using Android.Locations;
+using Java.Util;
 
 using HtmlAgilityPack;
 
@@ -193,7 +194,8 @@ namespace MalaysiaAPI
 
 		async Task<Address> ReverseGeocodeCurrentLocation()
 		{
-			Geocoder geocoder = new Geocoder (this);
+			Locale setLocale = new Locale ("ms");
+			Geocoder geocoder = new Geocoder (this, setLocale);
 			IList<Address> addressList = await geocoder.GetFromLocationAsync (_currentLocation.Latitude, _currentLocation.Longitude, 10);
 			Address address = addressList.FirstOrDefault ();
 			return address;
@@ -270,13 +272,30 @@ namespace MalaysiaAPI
 				int regionIndex = regionEntry.IndexOf (regionGrabbed);
 				string regionText = regionGrabbed.ToString ();
 				string value = latestAPI [regionEntry.IndexOf (regionGrabbed)];
+				string legendString = string.Empty;
+				string valueString = value.Remove (value.Length - 1);
 
-				valueText.Text = regionText + ": " + value;
+				char legends = value [value.Length - 1];
+				if (legends == '*') {
+					legendString = "PM10";
+				} else if (legends == 'a') {
+					legendString = "SO2";
+				} else if (legends == 'b') {
+					legendString = "NO2";
+				} else if (legends == 'c') {
+					legendString = "Ozone";
+				} else if (legends == 'd') {
+					legendString = "CO";
+				} else if (legends == '&') {
+					legendString = "Multiple";
+				} else { legendString = "Unknown"; }
+
+				valueText.Text = regionText + ": " + valueString + " " + legendString;
 
 				//TODO: Set column and row appropriately instead of append
 				GridLayout.LayoutParams layoutParam = new GridLayout.LayoutParams ();
 				layoutParam.RowSpec = GridLayout.InvokeSpec (y + regionIndex, GridLayout.BaselineAlighment);
-				layoutParam.ColumnSpec = GridLayout.InvokeSpec (x, GridLayout.Center);
+				layoutParam.ColumnSpec = GridLayout.InvokeSpec (x, GridLayout.LeftAlighment);
 
 
 				mainLayout.AddView (valueText,layoutParam);
