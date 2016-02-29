@@ -1496,7 +1496,7 @@ containing a value of this type.
         public static final int powered_by_google_light=0x7f020086;
     }
     public static final class id {
-        public static final int AddressTxt=0x7f0c0052;
+        public static final int AddressTxt=0x7f0c0053;
         public static final int action_bar=0x7f0c002e;
         public static final int action_bar_activity_content=0x7f0c0001;
         public static final int action_bar_container=0x7f0c002d;
@@ -1538,13 +1538,14 @@ containing a value of this type.
         public static final int image=0x7f0c0039;
         public static final int listMode=0x7f0c0006;
         public static final int list_item=0x7f0c003b;
-        public static final int locationTxt=0x7f0c0051;
+        public static final int locationTxt=0x7f0c0052;
+        public static final int lvlVal=0x7f0c0051;
         public static final int match_parent=0x7f0c0024;
-        public static final int media_route_control_frame=0x7f0c0057;
-        public static final int media_route_disconnect_button=0x7f0c0058;
-        public static final int media_route_list=0x7f0c0054;
-        public static final int media_route_volume_layout=0x7f0c0055;
-        public static final int media_route_volume_slider=0x7f0c0056;
+        public static final int media_route_control_frame=0x7f0c0058;
+        public static final int media_route_disconnect_button=0x7f0c0059;
+        public static final int media_route_list=0x7f0c0055;
+        public static final int media_route_volume_layout=0x7f0c0056;
+        public static final int media_route_volume_slider=0x7f0c0057;
         public static final int middle=0x7f0c0018;
         public static final int monochrome=0x7f0c002b;
         public static final int never=0x7f0c0012;
@@ -1555,7 +1556,7 @@ containing a value of this type.
         public static final int progress_horizontal=0x7f0c0005;
         public static final int radio=0x7f0c0041;
         public static final int regionTxt=0x7f0c0050;
-        public static final int region_spinner=0x7f0c005c;
+        public static final int region_spinner=0x7f0c005d;
         public static final int sandbox=0x7f0c0020;
         public static final int satellite=0x7f0c001b;
         public static final int search_badge=0x7f0c0044;
@@ -1569,20 +1570,20 @@ containing a value of this type.
         public static final int search_src_text=0x7f0c0049;
         public static final int search_voice_btn=0x7f0c004d;
         public static final int selectionDetails=0x7f0c0023;
-        public static final int set_button=0x7f0c0053;
+        public static final int set_button=0x7f0c0054;
         public static final int shortcut=0x7f0c0040;
         public static final int showCustom=0x7f0c000b;
         public static final int showHome=0x7f0c000c;
         public static final int showTitle=0x7f0c000d;
         public static final int split_action_bar=0x7f0c0030;
-        public static final int stateSelected=0x7f0c005b;
+        public static final int stateSelected=0x7f0c005c;
         public static final int stateTxt=0x7f0c004f;
-        public static final int state_spinner=0x7f0c005a;
+        public static final int state_spinner=0x7f0c005b;
         public static final int strict_sandbox=0x7f0c0021;
         public static final int submit_area=0x7f0c004b;
         public static final int tabMode=0x7f0c0008;
         public static final int terrain=0x7f0c001c;
-        public static final int textView1=0x7f0c0059;
+        public static final int textView1=0x7f0c005a;
         public static final int title=0x7f0c003d;
         public static final int top_action_bar=0x7f0c0032;
         public static final int up=0x7f0c0033;
