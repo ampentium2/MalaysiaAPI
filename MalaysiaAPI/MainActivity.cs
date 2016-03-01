@@ -55,10 +55,6 @@ namespace MalaysiaAPI
 		{
 			_currentLocation = location;
 
-			//Only for debug
-			_currentLocation.Latitude = 5.3818942;
-			_currentLocation.Longitude = 100.3989242;
-
 			if (_currentLocation == null) {
 				_locationTxt.Text = "Unable to determine your location";
 			} else {
@@ -75,8 +71,8 @@ namespace MalaysiaAPI
 				DisplayAddress (address);
 
 				//Remove textviews first and create new textviews
-//				HTMLDownload(address.GetAddressLine (address.MaxAddressLineIndex - 1)); 
-				HTMLDownload ("Pulau Pinang");	//For debug in emulator only
+				HTMLDownload(address.GetAddressLine (address.MaxAddressLineIndex - 1)); 
+//				HTMLDownload ("Pulau Pinang");	//For debug in emulator only
 			}
 		}
 
@@ -134,10 +130,6 @@ namespace MalaysiaAPI
 
 			InitLocationManager ();
 //			Address areaAddress = AddressFromArea("Seberang Jaya 2, Perai");
-
-			//For Debug Only
-			HTMLDownload ("Pulau Pinang");	//For debug in emulator only
-
 		}
 
 		void InitLocationManager()
@@ -240,7 +232,8 @@ namespace MalaysiaAPI
 			latestAPI.Clear();
 
 			string hourRegion = string.Empty;
-			string currentDay = currentTime.Hours == 0 ? (currentDateTime.Day - 1).ToString () : currentDateTime.Day.ToString ();
+			//TODO: A problem will occur if it's 1st day of month at 12AM. Date is 0-3-2016
+			string currentDay = currentTime.Hours == 0 ? (currentDateTime.Day - 1).ToString ("D2") : currentDateTime.Day.ToString ("D2");
 			string date = currentDateTime.Year.ToString () + "-" + currentDateTime.Month.ToString ("D2") + "-" + currentDay;
 			int currentHour = currentTime.Hours == 0 ? 24 : currentTime.Hours;
 
@@ -276,14 +269,10 @@ namespace MalaysiaAPI
 			List<float> distanceList = new List<float> ();
 			Locale myLocale = new Locale ("ms");
 //			Location distanceLoc = new Location ();
-			float[] distanceResult = new float[] { };
-			double debugLat = 5.3818942;
-			double debugLong = 100.3989242;
+			float[] distanceResult = new float[] {0};
 			foreach (string region in regionEntry) {
 				Address areaAddress = AddressFromArea (region);
-//				Location.DistanceBetween (_currentLocation.Latitude, _currentLocation.Longitude, areaAddress.Latitude, areaAddress.Longitude, distanceResult);
-				Location.DistanceBetween (debugLat, debugLong, areaAddress.Latitude, areaAddress.Longitude, distanceResult);
-
+				Location.DistanceBetween (_currentLocation.Latitude, _currentLocation.Longitude, areaAddress.Latitude, areaAddress.Longitude, distanceResult);
 				distanceList.Add (distanceResult.FirstOrDefault ());
 			}
 			int a = 5;
