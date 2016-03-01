@@ -1496,7 +1496,7 @@ containing a value of this type.
         public static int powered_by_google_light=0x7f020086;
     }
     public static final class id {
-        public static int AddressTxt=0x7f0c0052;
+        public static int AddressTxt=0x7f0c0053;
         public static int action_bar=0x7f0c002e;
         public static int action_bar_activity_content=0x7f0c0001;
         public static int action_bar_container=0x7f0c002d;
@@ -1538,13 +1538,14 @@ containing a value of this type.
         public static int image=0x7f0c0039;
         public static int listMode=0x7f0c0006;
         public static int list_item=0x7f0c003b;
-        public static int locationTxt=0x7f0c0051;
+        public static int locationTxt=0x7f0c0052;
+        public static int lvlVal=0x7f0c0051;
         public static int match_parent=0x7f0c0024;
-        public static int media_route_control_frame=0x7f0c0057;
-        public static int media_route_disconnect_button=0x7f0c0058;
-        public static int media_route_list=0x7f0c0054;
-        public static int media_route_volume_layout=0x7f0c0055;
-        public static int media_route_volume_slider=0x7f0c0056;
+        public static int media_route_control_frame=0x7f0c0058;
+        public static int media_route_disconnect_button=0x7f0c0059;
+        public static int media_route_list=0x7f0c0055;
+        public static int media_route_volume_layout=0x7f0c0056;
+        public static int media_route_volume_slider=0x7f0c0057;
         public static int middle=0x7f0c0018;
         public static int monochrome=0x7f0c002b;
         public static int never=0x7f0c0012;
@@ -1555,7 +1556,7 @@ containing a value of this type.
         public static int progress_horizontal=0x7f0c0005;
         public static int radio=0x7f0c0041;
         public static int regionTxt=0x7f0c0050;
-        public static int region_spinner=0x7f0c005c;
+        public static int region_spinner=0x7f0c005d;
         public static int sandbox=0x7f0c0020;
         public static int satellite=0x7f0c001b;
         public static int search_badge=0x7f0c0044;
@@ -1569,20 +1570,20 @@ containing a value of this type.
         public static int search_src_text=0x7f0c0049;
         public static int search_voice_btn=0x7f0c004d;
         public static int selectionDetails=0x7f0c0023;
-        public static int set_button=0x7f0c0053;
+        public static int set_button=0x7f0c0054;
         public static int shortcut=0x7f0c0040;
         public static int showCustom=0x7f0c000b;
         public static int showHome=0x7f0c000c;
         public static int showTitle=0x7f0c000d;
         public static int split_action_bar=0x7f0c0030;
-        public static int stateSelected=0x7f0c005b;
+        public static int stateSelected=0x7f0c005c;
         public static int stateTxt=0x7f0c004f;
-        public static int state_spinner=0x7f0c005a;
+        public static int state_spinner=0x7f0c005b;
         public static int strict_sandbox=0x7f0c0021;
         public static int submit_area=0x7f0c004b;
         public static int tabMode=0x7f0c0008;
         public static int terrain=0x7f0c001c;
-        public static int textView1=0x7f0c0059;
+        public static int textView1=0x7f0c005a;
         public static int title=0x7f0c003d;
         public static int top_action_bar=0x7f0c0032;
         public static int up=0x7f0c0033;

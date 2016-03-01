@@ -29,12 +29,16 @@ namespace MalaysiaAPI
 		 page's behavior will be configured according to the result transferred from settings page.
 		 */
 
-		//Revise these values
-//		int lowLvl = 25;
-//		int medLvl = 50;
+		//TODO: Exception Handler
+		//TODO: Refactor the shit out of this code
+
+		//Values are based APIMS guide.
+		int lowLvl = 50;
+		int medLvl = 100;
+		int highLvl = 200;
+		int alarmLvl = 300;
 
 		static readonly string TAG = "X:" + typeof(MainActivity).Name;
-		TextView _addressTxt;
 		Location _currentLocation;
 		LocationManager _locationManager;
 		TextView state;
@@ -44,21 +48,22 @@ namespace MalaysiaAPI
 		GridLayout mainLayout;
 		List<string> regionEntry = new List<string> ();
 		List<string> latestAPI = new List<string> ();
-		int lastId;
-
 		string _locationProvider;
-		TextView _locationTxt;
 
-
+		Android.Graphics.Color blue = Android.Graphics.Color.Argb (255, 0, 0, 153);
+		Android.Graphics.Color green = Android.Graphics.Color.Argb (255, 0, 153, 0);
+		Android.Graphics.Color red = Android.Graphics.Color.Argb (255, 153, 0, 0);
+		Android.Graphics.Color yellow = Android.Graphics.Color.Argb (255, 153, 153, 0);
+		Android.Graphics.Color orange = Android.Graphics.Color.Argb (255, 255, 153, 0);
 
 		public async void OnLocationChanged(Location location)
 		{
 			_currentLocation = location;
 
 			if (_currentLocation == null) {
-				_locationTxt.Text = "Unable to determine your location";
+				state.Text = "Location is not available";
+
 			} else {
-				_locationTxt.Text = string.Format ("{0:f6},{1:f6}", _currentLocation.Latitude, _currentLocation.Longitude);
 				Log.Debug (TAG, string.Format ("{0:f6},{1:f6}", _currentLocation.Latitude, _currentLocation.Longitude));
 				address = await ReverseGeocodeCurrentLocation ();
 
@@ -67,12 +72,8 @@ namespace MalaysiaAPI
 				} else {
 					state.Text = address.GetAddressLine (address.MaxAddressLineIndex - 1);
 				}
-
-				DisplayAddress (address);
-
-				//Remove textviews first and create new textviews
-				HTMLDownload(address.GetAddressLine (address.MaxAddressLineIndex - 1)); 
-//				HTMLDownload ("Pulau Pinang");	//For debug in emulator only
+				//Please use Emulator API23. Geocoder is not available on Emulator API19, got bug
+				HTMLDownload(address.GetAddressLine (address.MaxAddressLineIndex - 1));
 			}
 		}
 
@@ -103,19 +104,6 @@ namespace MalaysiaAPI
 
 			string stateString = string.Format ("State: ");
 			state.Text = stateString;
-//			int lvlInt = Convert.ToInt32(lvlIndicator.Text);
-//			var blue = Android.Graphics.Color.Argb (255, 0, 0, 153);
-//			var green = Android.Graphics.Color.Argb (255, 0, 153, 0);
-//			var red = Android.Graphics.Color.Argb (255, 153, 0, 0);
-//			if (lvlInt < lowLvl) {
-//				lvlIndicator.SetBackgroundColor(blue);
-//			}
-//			else if (lvlInt < medLvl && lvlInt > lowLvl) {
-//				lvlIndicator.SetBackgroundColor(green);
-//			}
-//			else if (lvlInt > medLvl) {
-//				lvlIndicator.SetBackgroundColor (red);
-//			}
 
 			setButton.Click += delegate {
 				var intent = new Intent(this, typeof(SettingsActivity));
@@ -125,11 +113,7 @@ namespace MalaysiaAPI
 			//Location Service
 			//InitLocationManager will initialize the service (set criteria fine or coarse, getproviders based on criteria)
 			//Then the location will always be updated onlocationchange
-			_addressTxt = FindViewById<TextView> (Resource.Id.AddressTxt);
-			_locationTxt = FindViewById<TextView> (Resource.Id.locationTxt);
-
 			InitLocationManager ();
-//			Address areaAddress = AddressFromArea("Seberang Jaya 2, Perai");
 		}
 
 		void InitLocationManager()
@@ -180,10 +164,9 @@ namespace MalaysiaAPI
 				string regionString = string.Format("Region: {0}",settingsConfigSplit [1]);
 
 				state = FindViewById<TextView> (Resource.Id.stateTxt);
-				TextView region = FindViewById<TextView> (Resource.Id.regionTxt);
-//				state.SetText (stateString, TextView.BufferType.Normal);
+				region = FindViewById<TextView> (Resource.Id.regionTxt);
 				state.Text = stateString;
-				region.SetText (regionString, TextView.BufferType.Normal);
+				region.Text = regionString;
 			}
 		}
 
@@ -204,21 +187,6 @@ namespace MalaysiaAPI
 			Address addressArea = addressList.SingleOrDefault (loc => loc.CountryName == "Malaysia");
 			return addressArea;
 		}
-
-		void DisplayAddress(Address address)
-		{
-			if (address != null) {
-				StringBuilder deviceAddress = new StringBuilder ();
-				for (int i = 0; i < address.MaxAddressLineIndex; i++) {
-					deviceAddress.AppendLine (address.GetAddressLine (i));
-				}
-				_addressTxt.Text = deviceAddress.ToString ();
-			} else {
-				_addressTxt.Text = "Unable to determine address";
-			}
-		}
-
-
 
 		async void HTMLDownload (string stateRequested)
 		{
@@ -249,8 +217,6 @@ namespace MalaysiaAPI
 
 			var div = htmlDoc.GetElementbyId ("content");
 			var table = div.Descendants ("table").ToList()[0].ChildNodes.ToList();
-//			var rowEntry = table [3].ChildNodes.ToList ();
-//			var stateEntry = rowEntry [0].InnerText.ToString ();
 
 			foreach (var tableEntry in table)
 			{
@@ -265,67 +231,51 @@ namespace MalaysiaAPI
 			}
 
 			//TODO: Get distance from current location to all areas, select the nearest one
-//			List<Single> distanceList = new List<Single> ();
 			List<float> distanceList = new List<float> ();
 			Locale myLocale = new Locale ("ms");
-//			Location distanceLoc = new Location ();
 			float[] distanceResult = new float[] {0};
-			foreach (string region in regionEntry) {
-				Address areaAddress = AddressFromArea (region);
+			foreach (string regionIteration in regionEntry) {
+				Address areaAddress = AddressFromArea (regionIteration);
 				Location.DistanceBetween (_currentLocation.Latitude, _currentLocation.Longitude, areaAddress.Latitude, areaAddress.Longitude, distanceResult);
 				distanceList.Add (distanceResult.FirstOrDefault ());
 			}
-			int a = 5;
+				
+			int entryIndex = distanceList.IndexOf(distanceList.Min());
+			region.Text = regionEntry [entryIndex].ToString ();
 
-			//TODO: Remove This???
-//			int id = 1000;
-//			int y = 4;
-//			int x = 1;
-//
-//			for (int index = 1000; index <= lastId; index++) {
-//				TextView removeTxtView = FindViewById<TextView> (index);
-//				mainLayout.RemoveView (removeTxtView);
-//			}
-//
-//			foreach (var regionGrabbed in regionEntry) {
-//				TextView valueText = new TextView (this);
-//
-//				valueText.Id = id + regionEntry.IndexOf (regionGrabbed);
-//				int regionIndex = regionEntry.IndexOf (regionGrabbed);
-//				string regionText = regionGrabbed.ToString ();
-//				string value = latestAPI [regionEntry.IndexOf (regionGrabbed)];
-//				string legendString = string.Empty;
-//				string valueString = value.Remove (value.Length - 1);
-//
-//				char legends = value [value.Length - 1];
-//				if (legends == '*') {
-//					legendString = "PM10";
-//				} else if (legends == 'a') {
-//					legendString = "SO2";
-//				} else if (legends == 'b') {
-//					legendString = "NO2";
-//				} else if (legends == 'c') {
-//					legendString = "Ozone";
-//				} else if (legends == 'd') {
-//					legendString = "CO";
-//				} else if (legends == '&') {
-//					legendString = "Multiple";
-//				} else { legendString = "Unknown"; }
-//
-//				valueText.Text = regionText + ": " + valueString + " " + legendString;
-//
-//				//Set column and row appropriately instead of append
-//				GridLayout.LayoutParams layoutParam = new GridLayout.LayoutParams ();
-//				layoutParam.RowSpec = GridLayout.InvokeSpec (y + regionIndex, GridLayout.BaselineAlighment);
-//				layoutParam.ColumnSpec = GridLayout.InvokeSpec (x, GridLayout.LeftAlighment);
-//
-//
-//				mainLayout.AddView (valueText,layoutParam);
-//			}
-//			lastId = id + regionEntry.Count();
+			string value = latestAPI [entryIndex].ToString ();
+			string finalValue = value.Remove (value.Length - 1);
+			string legendString = string.Empty;
+			char legends = value [value.Length - 1];
+			if (legends == '*') {
+				legendString = "PM10";
+			} else if (legends == 'a') {
+				legendString = "SO2";
+			} else if (legends == 'b') {
+				legendString = "NO2";
+			} else if (legends == 'c') {
+				legendString = "Ozone";
+			} else if (legends == 'd') {
+				legendString = "CO";
+			} else if (legends == '&') {
+				legendString = "Multiple";
+			} else { legendString = "Unknown"; }
 
-			//TODO: Use Google Place API to check for nearest location?
 
+			lvlIndicator.Text = finalValue + " " + legendString;
+			int lvlInt = Convert.ToInt32(finalValue);
+
+			if (lvlInt <= lowLvl) {
+				lvlIndicator.SetBackgroundColor (blue);
+			} else if (lvlInt > lowLvl && lvlInt <= medLvl) {
+				lvlIndicator.SetBackgroundColor (green);
+			} else if (lvlInt > medLvl && lvlInt <= highLvl) {
+				lvlIndicator.SetBackgroundColor (yellow);
+			} else if (lvlInt > highLvl && lvlInt <= alarmLvl) {
+				lvlIndicator.SetBackgroundColor (orange);
+			} else if (lvlInt > alarmLvl) {
+				lvlIndicator.SetBackgroundColor (red);
+			}
 		}
 	}
 }

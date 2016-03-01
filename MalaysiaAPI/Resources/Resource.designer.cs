@@ -1166,9 +1166,6 @@ namespace MalaysiaAPI
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f0c0053
-			public const int AddressTxt = 2131492947;
-			
 			// aapt resource value: 0x7f0c002e
 			public const int action_bar = 2131492910;
 			
@@ -1292,29 +1289,26 @@ namespace MalaysiaAPI
 			// aapt resource value: 0x7f0c003b
 			public const int list_item = 2131492923;
 			
-			// aapt resource value: 0x7f0c0052
-			public const int locationTxt = 2131492946;
-			
 			// aapt resource value: 0x7f0c0051
 			public const int lvlVal = 2131492945;
 			
 			// aapt resource value: 0x7f0c0024
 			public const int match_parent = 2131492900;
 			
-			// aapt resource value: 0x7f0c0058
-			public const int media_route_control_frame = 2131492952;
-			
-			// aapt resource value: 0x7f0c0059
-			public const int media_route_disconnect_button = 2131492953;
-			
-			// aapt resource value: 0x7f0c0055
-			public const int media_route_list = 2131492949;
-			
 			// aapt resource value: 0x7f0c0056
-			public const int media_route_volume_layout = 2131492950;
+			public const int media_route_control_frame = 2131492950;
 			
 			// aapt resource value: 0x7f0c0057
-			public const int media_route_volume_slider = 2131492951;
+			public const int media_route_disconnect_button = 2131492951;
+			
+			// aapt resource value: 0x7f0c0053
+			public const int media_route_list = 2131492947;
+			
+			// aapt resource value: 0x7f0c0054
+			public const int media_route_volume_layout = 2131492948;
+			
+			// aapt resource value: 0x7f0c0055
+			public const int media_route_volume_slider = 2131492949;
 			
 			// aapt resource value: 0x7f0c0018
 			public const int middle = 2131492888;
@@ -1346,8 +1340,8 @@ namespace MalaysiaAPI
 			// aapt resource value: 0x7f0c0050
 			public const int regionTxt = 2131492944;
 			
-			// aapt resource value: 0x7f0c005d
-			public const int region_spinner = 2131492957;
+			// aapt resource value: 0x7f0c005b
+			public const int region_spinner = 2131492955;
 			
 			// aapt resource value: 0x7f0c0020
 			public const int sandbox = 2131492896;
@@ -1388,8 +1382,8 @@ namespace MalaysiaAPI
 			// aapt resource value: 0x7f0c0023
 			public const int selectionDetails = 2131492899;
 			
-			// aapt resource value: 0x7f0c0054
-			public const int set_button = 2131492948;
+			// aapt resource value: 0x7f0c0052
+			public const int set_button = 2131492946;
 			
 			// aapt resource value: 0x7f0c0040
 			public const int shortcut = 2131492928;
@@ -1406,14 +1400,14 @@ namespace MalaysiaAPI
 			// aapt resource value: 0x7f0c0030
 			public const int split_action_bar = 2131492912;
 			
-			// aapt resource value: 0x7f0c005c
-			public const int stateSelected = 2131492956;
+			// aapt resource value: 0x7f0c005a
+			public const int stateSelected = 2131492954;
 			
 			// aapt resource value: 0x7f0c004f
 			public const int stateTxt = 2131492943;
 			
-			// aapt resource value: 0x7f0c005b
-			public const int state_spinner = 2131492955;
+			// aapt resource value: 0x7f0c0059
+			public const int state_spinner = 2131492953;
 			
 			// aapt resource value: 0x7f0c0021
 			public const int strict_sandbox = 2131492897;
@@ -1427,8 +1421,8 @@ namespace MalaysiaAPI
 			// aapt resource value: 0x7f0c001c
 			public const int terrain = 2131492892;
 			
-			// aapt resource value: 0x7f0c005a
-			public const int textView1 = 2131492954;
+			// aapt resource value: 0x7f0c0058
+			public const int textView1 = 2131492952;
 			
 			// aapt resource value: 0x7f0c003d
 			public const int title = 2131492925;

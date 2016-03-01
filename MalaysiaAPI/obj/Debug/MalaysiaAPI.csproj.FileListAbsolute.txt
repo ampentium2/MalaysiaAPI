@@ -37,6 +37,5 @@ E:\AndroidProjects\MalaysiaAPI2\MalaysiaAPI\MalaysiaAPI\obj\Debug\res\mipmap-xxh
 E:\AndroidProjects\MalaysiaAPI2\MalaysiaAPI\MalaysiaAPI\obj\Debug\res\mipmap-xxxhdpi\ic_launcher.png
 E:\AndroidProjects\MalaysiaAPI2\MalaysiaAPI\MalaysiaAPI\obj\Debug\R.cs.flag
 E:\AndroidProjects\MalaysiaAPI2\MalaysiaAPI\MalaysiaAPI\obj\Debug\uploadflags.txt
-E:\AndroidProjects\MalaysiaAPI2\MalaysiaAPI\MalaysiaAPI\obj\Debug\MalaysiaAPI.csprojResolveAssemblyReference.cache
 E:\AndroidProjects\MalaysiaAPI2\MalaysiaAPI\MalaysiaAPI\obj\Debug\MalaysiaAPI.dll.mdb
 E:\AndroidProjects\MalaysiaAPI2\MalaysiaAPI\MalaysiaAPI\bin\Debug\MalaysiaAPI.dll.mdb
