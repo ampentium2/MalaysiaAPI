@@ -6,6 +6,10 @@ MalaysiaAPI.SettingsActivity, MalaysiaAPI;md57095c8c500f0cc62b0d872c5192ae981.Se
 MalaysiaAPI.SettingsActivity, MalaysiaAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md57095c8c500f0cc62b0d872c5192ae981.SettingsActivity
 MalaysiaAPI.SettingsActivity;md57095c8c500f0cc62b0d872c5192ae981.SettingsActivity
 malaysiaapi.SettingsActivity;md57095c8c500f0cc62b0d872c5192ae981.SettingsActivity
+MalaysiaAPI.CoreCodeModel, MalaysiaAPI;md57095c8c500f0cc62b0d872c5192ae981.CoreCodeModel
+MalaysiaAPI.CoreCodeModel, MalaysiaAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md57095c8c500f0cc62b0d872c5192ae981.CoreCodeModel
+MalaysiaAPI.CoreCodeModel;md57095c8c500f0cc62b0d872c5192ae981.CoreCodeModel
+malaysiaapi.CoreCodeModel;md57095c8c500f0cc62b0d872c5192ae981.CoreCodeModel
 Android.Gms.Ads.DoubleClick.IAppEventListenerImplementor, GooglePlayServicesLib;mono.com.google.android.gms.ads.doubleclick.AppEventListenerImplementor
 Android.Gms.Ads.DoubleClick.IAppEventListenerImplementor, GooglePlayServicesLib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;mono.com.google.android.gms.ads.doubleclick.AppEventListenerImplementor
 Android.Gms.Ads.DoubleClick.IAppEventListenerImplementor;mono.com.google.android.gms.ads.doubleclick.AppEventListenerImplementor

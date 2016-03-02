@@ -1,20 +1,20 @@
 ﻿<Properties StartupItem="MalaysiaAPI\MalaysiaAPI.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Android.TestDevice6.0" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="MalaysiaAPI\MainActivity.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="MalaysiaAPI\CoreCodeModel.cs">
     <Files>
-      <File FileName="MalaysiaAPI\MainActivity.cs" Line="280" Column="21" />
+      <File FileName="MalaysiaAPI\MainActivity.cs" Line="202" Column="28" />
       <File FileName="MalaysiaAPI\SettingsActivity.cs" Line="1" Column="1" />
       <File FileName="MalaysiaAPI\Resources\values\Strings.xml" Line="1" Column="1" />
       <File FileName="MalaysiaAPI\Resources\Resource.designer.cs" Line="1" Column="1" />
       <File FileName="MalaysiaAPI\Properties\AndroidManifest.xml" Line="1" Column="1" />
-      <File FileName="MalaysiaAPI\CoreCodeModel.cs" Line="1" Column="1" />
       <File FileName="MalaysiaAPI\Properties\AssemblyInfo.cs" Line="1" Column="1" />
+      <File FileName="MalaysiaAPI\CoreCodeModel.cs" Line="77" Column="1" NotebookId="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="E:\AndroidProjects\MalaysiaAPI2\MalaysiaAPI\MalaysiaAPI\MainActivity.cs" line="278" column="1" />
-      <Breakpoint traceExpression="{addressList}" file="E:\AndroidProjects\MalaysiaAPI2\MalaysiaAPI\MalaysiaAPI\MainActivity.cs" line="198" column="1" />
+      <Breakpoint file="E:\AndroidProjects\MalaysiaAPI2\MalaysiaAPI\MalaysiaAPI\CoreCodeModel.cs" line="93" column="1" />
+      <Breakpoint file="E:\AndroidProjects\MalaysiaAPI2\MalaysiaAPI\MalaysiaAPI\MainActivity.cs" line="201" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

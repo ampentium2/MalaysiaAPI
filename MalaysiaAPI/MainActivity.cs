@@ -39,12 +39,13 @@ namespace MalaysiaAPI
 		int alarmLvl = 300;
 
 		static readonly string TAG = "X:" + typeof(MainActivity).Name;
-		Location _currentLocation;
+		public Location _currentLocation;
 		LocationManager _locationManager;
 		TextView state;
 		TextView region;
 		Address address;
 		TextView lvlIndicator;
+		TextView particle;
 		GridLayout mainLayout;
 		List<string> regionEntry = new List<string> ();
 		List<string> latestAPI = new List<string> ();
@@ -55,6 +56,8 @@ namespace MalaysiaAPI
 		Android.Graphics.Color red = Android.Graphics.Color.Argb (255, 153, 0, 0);
 		Android.Graphics.Color yellow = Android.Graphics.Color.Argb (255, 153, 153, 0);
 		Android.Graphics.Color orange = Android.Graphics.Color.Argb (255, 255, 153, 0);
+
+		CoreCodeModel CoreModel = new CoreCodeModel ();
 
 		public async void OnLocationChanged(Location location)
 		{
@@ -71,9 +74,12 @@ namespace MalaysiaAPI
 					state.Text = "String: No Address";
 				} else {
 					state.Text = address.GetAddressLine (address.MaxAddressLineIndex - 1);
+					//Please use Emulator API23. Geocoder is not available on Emulator API19, got bug
+//					CoreModel.HTMLDownload(address.GetAddressLine (address.MaxAddressLineIndex - 1), _currentLocation);
+					UpdateUI ();
 				}
 				//Please use Emulator API23. Geocoder is not available on Emulator API19, got bug
-				HTMLDownload(address.GetAddressLine (address.MaxAddressLineIndex - 1));
+//				HTMLDownload(address.GetAddressLine (address.MaxAddressLineIndex - 1));
 			}
 		}
 
@@ -101,6 +107,7 @@ namespace MalaysiaAPI
 			state = FindViewById<TextView> (Resource.Id.stateTxt);
 			region = FindViewById<TextView> (Resource.Id.regionTxt);
 			mainLayout = FindViewById<GridLayout> (Resource.Id.gridLayout1);
+			particle = FindViewById<TextView> (Resource.Id.particleTxt);
 
 			string stateString = string.Format ("State: ");
 			state.Text = stateString;
@@ -179,74 +186,26 @@ namespace MalaysiaAPI
 			return addressReversed;
 		}
 
-		Address AddressFromArea(string locationName)
+//		public Address AddressFromArea(string locationName)
+//		{
+//			Locale setLocale = new Locale ("ms");
+//			Geocoder geocoder = new Geocoder (this, setLocale);
+//			IList<Address> addressList = geocoder.GetFromLocationName (locationName, 10);
+//			Address addressArea = addressList.SingleOrDefault (loc => loc.CountryName == "Malaysia");
+//			return addressArea;
+//		}
+
+		async void UpdateUI ()
 		{
-			Locale setLocale = new Locale ("ms");
-			Geocoder geocoder = new Geocoder (this, setLocale);
-			IList<Address> addressList = geocoder.GetFromLocationName (locationName, 10);
-			Address addressArea = addressList.SingleOrDefault (loc => loc.CountryName == "Malaysia");
-			return addressArea;
-		}
+			int complete = await CoreModel.HTMLDownload(address.GetAddressLine (address.MaxAddressLineIndex - 1), _currentLocation);
+			int relevantDataIndex = CoreModel.latestAPI.IndexOf(CoreModel.latestAPI.Min());
+			region.Text = CoreModel.regionEntry [relevantDataIndex];
 
-		async void HTMLDownload (string stateRequested)
-		{
-			HtmlWeb htmlWeb = new HtmlWeb ();
-			HtmlDocument htmlDoc = new HtmlDocument ();
-			DateTime currentDateTime = DateTime.Now;
-			TimeSpan currentTime = currentDateTime.TimeOfDay;
-			int hourIndex = 3;
-
-			regionEntry.Clear ();
-			latestAPI.Clear();
-
-			string hourRegion = string.Empty;
-			//TODO: A problem will occur if it's 1st day of month at 12AM. Date is 0-3-2016
-			string currentDay = currentTime.Hours == 0 ? (currentDateTime.Day - 1).ToString ("D2") : currentDateTime.Day.ToString ("D2");
-			string date = currentDateTime.Year.ToString () + "-" + currentDateTime.Month.ToString ("D2") + "-" + currentDay;
-			int currentHour = currentTime.Hours == 0 ? 24 : currentTime.Hours;
-
-			if (currentHour > 0 && currentHour <= 6) { hourRegion = "hour1"; hourIndex += currentHour - 1; }
-			else if (currentHour > 6 && currentHour <= 12) { hourRegion = "hour2"; hourIndex += (currentHour - 6 - 1); }
-			else if (currentHour > 12 && currentHour <= 18) { hourRegion = "hour3"; hourIndex += (currentHour - 12 - 1);}
-			else if (currentHour > 18 && currentHour <= 24) { hourRegion = "hour4"; hourIndex += (currentHour - 18 - 1);}
-
-			string urlConstruct = "http://apims.doe.gov.my/v2/" + hourRegion + "_" + date + ".html";
-
-			//TODO: Try-Catch LoadFromWeb so that it doesn't crash if web service is unavailable
-			htmlDoc = await htmlWeb.LoadFromWebAsync(urlConstruct);
-
-			var div = htmlDoc.GetElementbyId ("content");
-			var table = div.Descendants ("table").ToList()[0].ChildNodes.ToList();
-
-			foreach (var tableEntry in table)
-			{
-				if (tableEntry.HasChildNodes) {
-					var rowEntry = tableEntry.ChildNodes.ToList ();
-					var stateEntry = rowEntry [0].InnerText.ToString ();
-					if (stateEntry == stateRequested) {
-						regionEntry.Add (rowEntry [2].InnerText.ToString ());
-						latestAPI.Add(rowEntry [hourIndex].InnerText.ToString ());
-					}
-				}
-			}
-
-			//TODO: Get distance from current location to all areas, select the nearest one
-			List<float> distanceList = new List<float> ();
-			Locale myLocale = new Locale ("ms");
-			float[] distanceResult = new float[] {0};
-			foreach (string regionIteration in regionEntry) {
-				Address areaAddress = AddressFromArea (regionIteration);
-				Location.DistanceBetween (_currentLocation.Latitude, _currentLocation.Longitude, areaAddress.Latitude, areaAddress.Longitude, distanceResult);
-				distanceList.Add (distanceResult.FirstOrDefault ());
-			}
-				
-			int entryIndex = distanceList.IndexOf(distanceList.Min());
-			region.Text = regionEntry [entryIndex].ToString ();
-
-			string value = latestAPI [entryIndex].ToString ();
+			string value = CoreModel.latestAPI [relevantDataIndex];
 			string finalValue = value.Remove (value.Length - 1);
 			string legendString = string.Empty;
 			char legends = value [value.Length - 1];
+
 			if (legends == '*') {
 				legendString = "PM10";
 			} else if (legends == 'a') {
@@ -259,24 +218,103 @@ namespace MalaysiaAPI
 				legendString = "CO";
 			} else if (legends == '&') {
 				legendString = "Multiple";
-			} else { legendString = "Unknown"; }
-
-
-			lvlIndicator.Text = finalValue + " " + legendString;
-			int lvlInt = Convert.ToInt32(finalValue);
-
-			if (lvlInt <= lowLvl) {
-				lvlIndicator.SetBackgroundColor (blue);
-			} else if (lvlInt > lowLvl && lvlInt <= medLvl) {
-				lvlIndicator.SetBackgroundColor (green);
-			} else if (lvlInt > medLvl && lvlInt <= highLvl) {
-				lvlIndicator.SetBackgroundColor (yellow);
-			} else if (lvlInt > highLvl && lvlInt <= alarmLvl) {
-				lvlIndicator.SetBackgroundColor (orange);
-			} else if (lvlInt > alarmLvl) {
-				lvlIndicator.SetBackgroundColor (red);
+			} else {
+				legendString = "Unknown";
 			}
+
+			lvlIndicator.Text = finalValue;
+			particle.Text = legendString;
 		}
+
+//		async void HTMLDownload (string stateRequested)
+//		{
+//			HtmlWeb htmlWeb = new HtmlWeb ();
+//			HtmlDocument htmlDoc = new HtmlDocument ();
+//			DateTime currentDateTime = DateTime.Now;
+//			TimeSpan currentTime = currentDateTime.TimeOfDay;
+//			int hourIndex = 3;
+//
+//			regionEntry.Clear ();
+//			latestAPI.Clear();
+//
+//			string hourRegion = string.Empty;
+//			//TODO: A problem will occur if it's 1st day of month at 12AM. Date is 0-3-2016
+//			string currentDay = currentTime.Hours == 0 ? (currentDateTime.Day - 1).ToString ("D2") : currentDateTime.Day.ToString ("D2");
+//			string date = currentDateTime.Year.ToString () + "-" + currentDateTime.Month.ToString ("D2") + "-" + currentDay;
+//			int currentHour = currentTime.Hours == 0 ? 24 : currentTime.Hours;
+//
+//			if (currentHour > 0 && currentHour <= 6) { hourRegion = "hour1"; hourIndex += currentHour - 1; }
+//			else if (currentHour > 6 && currentHour <= 12) { hourRegion = "hour2"; hourIndex += (currentHour - 6 - 1); }
+//			else if (currentHour > 12 && currentHour <= 18) { hourRegion = "hour3"; hourIndex += (currentHour - 12 - 1);}
+//			else if (currentHour > 18 && currentHour <= 24) { hourRegion = "hour4"; hourIndex += (currentHour - 18 - 1);}
+//
+//			string urlConstruct = "http://apims.doe.gov.my/v2/" + hourRegion + "_" + date + ".html";
+//
+//			//TODO: Try-Catch LoadFromWeb so that it doesn't crash if web service is unavailable
+//			htmlDoc = await htmlWeb.LoadFromWebAsync(urlConstruct);
+//
+//			var div = htmlDoc.GetElementbyId ("content");
+//			var table = div.Descendants ("table").ToList()[0].ChildNodes.ToList();
+//
+//			foreach (var tableEntry in table)
+//			{
+//				if (tableEntry.HasChildNodes) {
+//					var rowEntry = tableEntry.ChildNodes.ToList ();
+//					var stateEntry = rowEntry [0].InnerText.ToString ();
+//					if (stateEntry == stateRequested) {
+//						regionEntry.Add (rowEntry [2].InnerText.ToString ());
+//						latestAPI.Add(rowEntry [hourIndex].InnerText.ToString ());
+//					}
+//				}
+//			}
+//
+//			//TODO: Get distance from current location to all areas, select the nearest one
+//			List<float> distanceList = new List<float> ();
+//			Locale myLocale = new Locale ("ms");
+//			float[] distanceResult = new float[] {0};
+//			foreach (string regionIteration in regionEntry) {
+//				Address areaAddress = AddressFromArea (regionIteration);
+//				Location.DistanceBetween (_currentLocation.Latitude, _currentLocation.Longitude, areaAddress.Latitude, areaAddress.Longitude, distanceResult);
+//				distanceList.Add (distanceResult.FirstOrDefault ());
+//			}
+//				
+//			int entryIndex = distanceList.IndexOf(distanceList.Min());
+//			region.Text = regionEntry [entryIndex].ToString ();
+//
+//			string value = latestAPI [entryIndex].ToString ();
+//			string finalValue = value.Remove (value.Length - 1);
+//			string legendString = string.Empty;
+//			char legends = value [value.Length - 1];
+//			if (legends == '*') {
+//				legendString = "PM10";
+//			} else if (legends == 'a') {
+//				legendString = "SO2";
+//			} else if (legends == 'b') {
+//				legendString = "NO2";
+//			} else if (legends == 'c') {
+//				legendString = "Ozone";
+//			} else if (legends == 'd') {
+//				legendString = "CO";
+//			} else if (legends == '&') {
+//				legendString = "Multiple";
+//			} else { legendString = "Unknown"; }
+//
+//
+//			lvlIndicator.Text = finalValue + " " + legendString;
+//			int lvlInt = Convert.ToInt32(finalValue);
+//
+//			if (lvlInt <= lowLvl) {
+//				lvlIndicator.SetBackgroundColor (blue);
+//			} else if (lvlInt > lowLvl && lvlInt <= medLvl) {
+//				lvlIndicator.SetBackgroundColor (green);
+//			} else if (lvlInt > medLvl && lvlInt <= highLvl) {
+//				lvlIndicator.SetBackgroundColor (yellow);
+//			} else if (lvlInt > highLvl && lvlInt <= alarmLvl) {
+//				lvlIndicator.SetBackgroundColor (orange);
+//			} else if (lvlInt > alarmLvl) {
+//				lvlIndicator.SetBackgroundColor (red);
+//			}
+//		}
 	}
 }
 
