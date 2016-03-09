@@ -80,7 +80,6 @@ public class MonoPackageManager {
 class MonoPackageManager_Resources {
 	public static final String[] Assemblies = new String[]{
 		"MalaysiaAPI.dll",
-		"GooglePlayServicesLib.dll",
 		"HtmlAgilityPack.dll",
 		"Xamarin.Android.Support.v13.dll",
 		"Xamarin.Android.Support.v4.dll",

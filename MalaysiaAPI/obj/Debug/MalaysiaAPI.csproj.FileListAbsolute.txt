@@ -1,8 +1,17 @@
+X:\MalaysiaAPI\MalaysiaAPI\obj\Debug\MalaysiaAPI.csprojResolveAssemblyReference.cache
+X:\MalaysiaAPI\MalaysiaAPI\obj\Debug\res\drawable\monoandroidsplash.png
+X:\MalaysiaAPI\MalaysiaAPI\obj\Debug\res\values\styles.xml
+X:\MalaysiaAPI\MalaysiaAPI\obj\Debug\MalaysiaAPI.dll
+X:\MalaysiaAPI\MalaysiaAPI\obj\Debug\MalaysiaAPI.pdb
+E:\AndroidProjects\MalaysiaAPIWorking\MalaysiaAPI\MalaysiaAPI\obj\Debug\MalaysiaAPI.csprojResolveAssemblyReference.cache
+E:\AndroidProjects\MalaysiaAPIWorking\MalaysiaAPI\MalaysiaAPI\obj\Debug\res\drawable\monoandroidsplash.png
+E:\AndroidProjects\MalaysiaAPIWorking\MalaysiaAPI\MalaysiaAPI\obj\Debug\res\values\styles.xml
+E:\AndroidProjects\MalaysiaAPIWorking\MalaysiaAPI\MalaysiaAPI\obj\Debug\MalaysiaAPI.dll
+E:\AndroidProjects\MalaysiaAPIWorking\MalaysiaAPI\MalaysiaAPI\obj\Debug\MalaysiaAPI.pdb
 E:\AndroidProjects\MalaysiaAPI2\MalaysiaAPI\MalaysiaAPI\bin\Debug\MalaysiaAPI.dll
 E:\AndroidProjects\MalaysiaAPI2\MalaysiaAPI\MalaysiaAPI\bin\Debug\MalaysiaAPI.pdb
 E:\AndroidProjects\MalaysiaAPI2\MalaysiaAPI\MalaysiaAPI\bin\Debug\com.rldigital.malaysiaapi.apk
 E:\AndroidProjects\MalaysiaAPI2\MalaysiaAPI\MalaysiaAPI\bin\Debug\com.rldigital.malaysiaapi-Signed.apk
-E:\AndroidProjects\MalaysiaAPI2\MalaysiaAPI\MalaysiaAPI\bin\Debug\GooglePlayServicesLib.dll
 E:\AndroidProjects\MalaysiaAPI2\MalaysiaAPI\MalaysiaAPI\bin\Debug\HtmlAgilityPack.dll
 E:\AndroidProjects\MalaysiaAPI2\MalaysiaAPI\MalaysiaAPI\bin\Debug\Xamarin.Android.Support.v13.dll
 E:\AndroidProjects\MalaysiaAPI2\MalaysiaAPI\MalaysiaAPI\bin\Debug\Xamarin.Android.Support.v4.dll
@@ -12,6 +21,7 @@ E:\AndroidProjects\MalaysiaAPI2\MalaysiaAPI\MalaysiaAPI\bin\Debug\Xamarin.Insigh
 E:\AndroidProjects\MalaysiaAPI2\MalaysiaAPI\MalaysiaAPI\bin\Debug\Xamarin.Insights.xml
 E:\AndroidProjects\MalaysiaAPI2\MalaysiaAPI\MalaysiaAPI\bin\Debug\HtmlAgilityPack.pdb
 E:\AndroidProjects\MalaysiaAPI2\MalaysiaAPI\MalaysiaAPI\bin\Debug\HtmlAgilityPack.dll.mdb
+E:\AndroidProjects\MalaysiaAPI2\MalaysiaAPI\MalaysiaAPI\obj\Debug\MalaysiaAPI.csprojResolveAssemblyReference.cache
 E:\AndroidProjects\MalaysiaAPI2\MalaysiaAPI\MalaysiaAPI\obj\Debug\res\drawable\monoandroidsplash.png
 E:\AndroidProjects\MalaysiaAPI2\MalaysiaAPI\MalaysiaAPI\obj\Debug\res\values\styles.xml
 E:\AndroidProjects\MalaysiaAPI2\MalaysiaAPI\MalaysiaAPI\obj\Debug\MalaysiaAPI.dll

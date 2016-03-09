@@ -1,5 +1,4 @@
 E:\AndroidProjects\MalaysiaAPI2\MalaysiaAPI\MalaysiaAPI\obj\Debug\assemblies\MalaysiaAPI.dll
-E:\AndroidProjects\MalaysiaAPI2\MalaysiaAPI\MalaysiaAPI\obj\Debug\assemblies\GooglePlayServicesLib.dll
 E:\AndroidProjects\MalaysiaAPI2\MalaysiaAPI\MalaysiaAPI\obj\Debug\assemblies\HtmlAgilityPack.dll
 E:\AndroidProjects\MalaysiaAPI2\MalaysiaAPI\MalaysiaAPI\obj\Debug\assemblies\Mono.Android.dll
 E:\AndroidProjects\MalaysiaAPI2\MalaysiaAPI\MalaysiaAPI\obj\Debug\assemblies\mscorlib.dll
