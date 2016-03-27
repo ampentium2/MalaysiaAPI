@@ -13,6 +13,7 @@ using Android.Widget;
 using Android.OS;
 using Android.Util;
 using Android.Locations;
+using Android.Support.V4.App;
 using Java.Util;
 
 using HtmlAgilityPack;
@@ -43,19 +44,18 @@ namespace MalaysiaAPI
 		TextView lvlIndicator;
 		TextView loadingText;
 		GridLayout mainLayout;
-		static List<string> regionEntry;
-		static List<string> latestAPI;
+		static List<string> regionEntry = CoreCodeModel.regionsList;
+		static List<string> latestAPI = CoreCodeModel.APIList;
 		string _locationProvider;
-		string errorString;
-
-		//for debug
-		int x = 10;
+		static string errorString = CoreCodeModel.errorMessage;
 
 		Android.Graphics.Color blue = Android.Graphics.Color.Argb (255, 0, 0, 153);
 		Android.Graphics.Color green = Android.Graphics.Color.Argb (255, 0, 153, 0);
 		Android.Graphics.Color red = Android.Graphics.Color.Argb (255, 153, 0, 0);
 		Android.Graphics.Color yellow = Android.Graphics.Color.Argb (255, 153, 153, 0);
 		Android.Graphics.Color orange = Android.Graphics.Color.Argb (255, 255, 153, 0);
+
+		CoreCodeModel ccm = new CoreCodeModel();
 
 		public async void OnLocationChanged(Location location)
 		{
@@ -73,7 +73,7 @@ namespace MalaysiaAPI
 					state.Text = "String: No Address";
 				} else {
 					state.Text = address.GetAddressLine (address.MaxAddressLineIndex - 1);
-					int complete = await HTMLDownload (address.GetAddressLine (address.MaxAddressLineIndex - 1));
+					int complete = await ccm.HTMLDownload (address.GetAddressLine (address.MaxAddressLineIndex - 1));
 					if (complete == 1) {
 						int locationIndex = GetNearestLocationIndex ();
 						UpdateUI (locationIndex);
@@ -101,6 +101,8 @@ namespace MalaysiaAPI
 
 			// Set our view from the "main" layout resource
 			SetContentView (Resource.Layout.Main);
+			StartService (new Intent(Application.Context, typeof(NotificationService)));
+
 
 			//Our App starts here
 			ImageButton setButton = FindViewById<ImageButton> (Resource.Id.set_button);
@@ -109,8 +111,6 @@ namespace MalaysiaAPI
 			region = FindViewById<TextView> (Resource.Id.regionTxt);
 			mainLayout = FindViewById<GridLayout> (Resource.Id.gridLayout1);
 			loadingText = FindViewById<TextView> (Resource.Id.loadText);
-			regionEntry = new List<string> ();
-			latestAPI = new List<string> ();
 
 			string stateString = string.Format ("State: ");
 			state.Text = stateString;
@@ -125,6 +125,7 @@ namespace MalaysiaAPI
 			//InitLocationManager will initialize the service (set criteria fine or coarse, getproviders based on criteria)
 			//Then the location will always be updated onlocationchange
 			InitLocationManager ();
+//			_locationManager.RequestLocationUpdates (_locationProvider, 60*60*1000, 0, this);
 		}
 
 		void InitLocationManager()
@@ -195,64 +196,9 @@ namespace MalaysiaAPI
 		{
 			Locale setLocale = new Locale ("ms");
 			Geocoder geocoder = new Geocoder (this, setLocale);
-			IList<Address> addressList = geocoder.GetFromLocationName (locationName, 10);
-			Address addressArea = addressList.SingleOrDefault (loc => loc.CountryName == "Malaysia");
+			IList<Address> addressList = geocoder.GetFromLocationName (locationName, 50);
+			Address addressArea = addressList.SingleOrDefault (loc => loc.CountryName == "Malaysia" && loc.AdminArea == address.GetAddressLine (address.MaxAddressLineIndex - 1));
 			return addressArea;
-		}
-
-		async Task<int> HTMLDownload (string stateRequested)
-		{
-			HtmlWeb htmlWeb = new HtmlWeb ();
-			HtmlDocument htmlDoc = new HtmlDocument ();
-			DateTime currentDateTime = DateTime.Now;
-			TimeSpan currentTime = currentDateTime.TimeOfDay;
-			int hourIndex = 3;
-			int completeStatus = 0;
-
-			regionEntry.Clear ();
-			latestAPI.Clear();
-
-			string hourRegion = string.Empty;
-			//A problem will occur if it's 1st day of month at 12AM. Date is 0-3-2016
-			string currentDay = string.Empty;
-			if (currentDateTime.Day == 1) {
-				currentDay = currentDateTime.Day.ToString ("D2");
-			} else {
-				currentDay = currentTime.Hours == 0 ? (currentDateTime.Day - 1).ToString ("D2") : currentDateTime.Day.ToString ("D2");
-			}
-
-			string date = currentDateTime.Year.ToString () + "-" + currentDateTime.Month.ToString ("D2") + "-" + currentDay;
-			int currentHour = currentTime.Hours == 0 ? 24 : currentTime.Hours;
-
-			if (currentHour > 0 && currentHour <= 6) { hourRegion = "hour1"; hourIndex += currentHour - 1; }
-			else if (currentHour > 6 && currentHour <= 12) { hourRegion = "hour2"; hourIndex += (currentHour - 6 - 1); }
-			else if (currentHour > 12 && currentHour <= 18) { hourRegion = "hour3"; hourIndex += (currentHour - 12 - 1);}
-			else if (currentHour > 18 && currentHour <= 24) { hourRegion = "hour4"; hourIndex += (currentHour - 18 - 1);}
-
-			string urlConstruct = "http://apims.doe.gov.my/v2/" + hourRegion + "_" + date + ".html";
-
-			try {
-				htmlDoc = await htmlWeb.LoadFromWebAsync(urlConstruct);
-				var div = htmlDoc.GetElementbyId ("content");
-				var table = div.Descendants ("table").ToList () [0].ChildNodes.ToList ();
-
-				foreach (var tableEntry in table) {
-					if (tableEntry.HasChildNodes) {
-						var rowEntry = tableEntry.ChildNodes.ToList ();
-						var stateEntry = rowEntry [0].InnerText.ToString ();
-						if (stateEntry == stateRequested) {
-							regionEntry.Add (rowEntry [2].InnerText.ToString ());
-							latestAPI.Add (rowEntry [hourIndex].InnerText.ToString ());
-						}
-					}
-				}
-				completeStatus = 1;
-			}
-			catch (Exception e) {
-				completeStatus = 0;
-				errorString = e.Message.ToString();
-			}
-			return completeStatus;
 		}
 
 		int GetNearestLocationIndex()
@@ -277,10 +223,9 @@ namespace MalaysiaAPI
 				lvlIndicator.Text = errorString;
 				lvlIndicator.SetBackgroundColor( Android.Graphics.Color.Transparent);
 				lvlIndicator.SetTextColor (Android.Graphics.Color.Black);
-				lvlIndicator.SetPadding (0, lvlIndicator.PaddingTop, lvlIndicator.PaddingRight, lvlIndicator.PaddingBottom);
+//				lvlIndicator.SetPadding (0, lvlIndicator.PaddingTop, lvlIndicator.PaddingRight, lvlIndicator.PaddingBottom);
 			} else {
 				region.Text = regionEntry [index].ToString ();
-				loadingText.Visibility = ViewStates.Invisible;
 				region.Visibility = ViewStates.Visible;
 				state.Visibility = ViewStates.Visible;
 
@@ -318,9 +263,10 @@ namespace MalaysiaAPI
 				} else if (lvlInt > alarmLvl) {
 					lvlIndicator.SetBackgroundColor (red);
 				}
-				lvlIndicator.SetTextColor (Android.Graphics.Color.White);
-				lvlIndicator.Visibility = ViewStates.Visible;
 			}
+			loadingText.Visibility = ViewStates.Invisible;
+			lvlIndicator.SetTextColor (Android.Graphics.Color.White);
+			lvlIndicator.Visibility = ViewStates.Visible;
 		}
 	}
 }

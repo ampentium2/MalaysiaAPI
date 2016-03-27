@@ -833,58 +833,61 @@ namespace MalaysiaAPI
 			public const int abc_textfield_searchview_right_holo_light = 2130837590;
 			
 			// aapt resource value: 0x7f020057
-			public const int monoandroidsplash = 2130837591;
+			public const int background_low = 2130837591;
 			
 			// aapt resource value: 0x7f020058
-			public const int mr_ic_audio_vol = 2130837592;
+			public const int monoandroidsplash = 2130837592;
 			
 			// aapt resource value: 0x7f020059
-			public const int mr_ic_media_route_connecting_holo_dark = 2130837593;
+			public const int mr_ic_audio_vol = 2130837593;
 			
 			// aapt resource value: 0x7f02005a
-			public const int mr_ic_media_route_connecting_holo_light = 2130837594;
+			public const int mr_ic_media_route_connecting_holo_dark = 2130837594;
 			
 			// aapt resource value: 0x7f02005b
-			public const int mr_ic_media_route_disabled_holo_dark = 2130837595;
+			public const int mr_ic_media_route_connecting_holo_light = 2130837595;
 			
 			// aapt resource value: 0x7f02005c
-			public const int mr_ic_media_route_disabled_holo_light = 2130837596;
+			public const int mr_ic_media_route_disabled_holo_dark = 2130837596;
 			
 			// aapt resource value: 0x7f02005d
-			public const int mr_ic_media_route_holo_dark = 2130837597;
+			public const int mr_ic_media_route_disabled_holo_light = 2130837597;
 			
 			// aapt resource value: 0x7f02005e
-			public const int mr_ic_media_route_holo_light = 2130837598;
+			public const int mr_ic_media_route_holo_dark = 2130837598;
 			
 			// aapt resource value: 0x7f02005f
-			public const int mr_ic_media_route_off_holo_dark = 2130837599;
+			public const int mr_ic_media_route_holo_light = 2130837599;
 			
 			// aapt resource value: 0x7f020060
-			public const int mr_ic_media_route_off_holo_light = 2130837600;
+			public const int mr_ic_media_route_off_holo_dark = 2130837600;
 			
 			// aapt resource value: 0x7f020061
-			public const int mr_ic_media_route_on_0_holo_dark = 2130837601;
+			public const int mr_ic_media_route_off_holo_light = 2130837601;
 			
 			// aapt resource value: 0x7f020062
-			public const int mr_ic_media_route_on_0_holo_light = 2130837602;
+			public const int mr_ic_media_route_on_0_holo_dark = 2130837602;
 			
 			// aapt resource value: 0x7f020063
-			public const int mr_ic_media_route_on_1_holo_dark = 2130837603;
+			public const int mr_ic_media_route_on_0_holo_light = 2130837603;
 			
 			// aapt resource value: 0x7f020064
-			public const int mr_ic_media_route_on_1_holo_light = 2130837604;
+			public const int mr_ic_media_route_on_1_holo_dark = 2130837604;
 			
 			// aapt resource value: 0x7f020065
-			public const int mr_ic_media_route_on_2_holo_dark = 2130837605;
+			public const int mr_ic_media_route_on_1_holo_light = 2130837605;
 			
 			// aapt resource value: 0x7f020066
-			public const int mr_ic_media_route_on_2_holo_light = 2130837606;
+			public const int mr_ic_media_route_on_2_holo_dark = 2130837606;
 			
 			// aapt resource value: 0x7f020067
-			public const int mr_ic_media_route_on_holo_dark = 2130837607;
+			public const int mr_ic_media_route_on_2_holo_light = 2130837607;
 			
 			// aapt resource value: 0x7f020068
-			public const int mr_ic_media_route_on_holo_light = 2130837608;
+			public const int mr_ic_media_route_on_holo_dark = 2130837608;
+			
+			// aapt resource value: 0x7f020069
+			public const int mr_ic_media_route_on_holo_light = 2130837609;
 			
 			static Drawable()
 			{

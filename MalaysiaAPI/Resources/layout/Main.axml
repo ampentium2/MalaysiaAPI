@@ -8,6 +8,7 @@
     p1:id="@+id/gridLayout1"
     p1:clipChildren="true"
     p1:clipToPadding="true"
+    p1:background="@drawable/background_low"
     tools:gridSpec="1|8|#0093eeff|K:#ee8700ff:16,l:72,l:16,r|S:#83ee00ff:16,0,l:16,56,l:16,0,r">
     <Space
         p1:layout_row="0"
@@ -16,54 +17,57 @@
     <TextView
         p1:text="@string/app_name"
         p1:layout_row="1"
-        p1:layout_column="1"
+        p1:layout_column="0"
         p1:textSize="20dp"
         p1:textAlignment="center"
-        p1:fitsSystemWindows="true" />
+        p1:fitsSystemWindows="true"
+        p1:paddingLeft="30dp" />
     <TextView
         p1:text="State: "
         p1:layout_row="2"
-        p1:layout_column="1"
+        p1:layout_column="0"
         p1:textAlignment="center"
         p1:textSize="15dp"
-        p1:layout_marginTop="70dp"
-        p1:layout_marginLeft="70dp"
         p1:gravity="center_horizontal"
         p1:id="@+id/stateTxt"
-        p1:visibility="invisible" />
+        p1:visibility="invisible"
+        p1:layout_marginTop="140dp"
+        p1:paddingLeft="30dp" />
     <TextView
         p1:text="Region: "
         p1:layout_row="3"
-        p1:layout_column="1"
+        p1:layout_column="0"
         p1:textAlignment="center"
         p1:textSize="15dp"
-        p1:layout_marginLeft="70dp"
         p1:gravity="center_horizontal"
         p1:id="@+id/regionTxt"
-        p1:visibility="invisible" />
+        p1:visibility="invisible"
+        p1:layout_marginTop="0dp"
+        p1:paddingLeft="30dp" />
     <TextView
         p1:id="@+id/lvlVal"
         p1:layout_row="4"
-        p1:layout_column="1"
-        p1:text="Waiting For Data"
-        p1:layout_marginTop="75dp"
-        p1:layout_marginLeft="72dp"
-        p1:background="#00000000"
+        p1:layout_column="0"
+        p1:text="Waiting for Data"
+        p1:background="#FF00FF00"
         p1:textStyle="bold"
         p1:paddingTop="50dp"
-        p1:paddingRight="50dp"
-        p1:paddingLeft="50dp"
+        p1:paddingRight="190dp"
+        p1:paddingLeft="30dp"
         p1:paddingBottom="50dp"
         p1:paddingStart="5dp"
         p1:paddingEnd="5dp"
-        p1:visibility="invisible" />
+        p1:visibility="visible"
+        p1:layout_marginTop="65dp"
+        p1:layout_marginLeft="30dp" />
     <TextView
         p1:id="@+id/loadText"
         p1:layout_row="4"
-        p1:layout_column="1"
+        p1:layout_column="0"
+        p1:paddingLeft="30dp"
         p1:text="Loading"
         p1:visibility="visible"
-        p1:layout_marginTop="75dp" />
+        p1:layout_marginTop="65dp" />
 <!-- txtview location and address is only for debug purposes -->
 <!--    <TextView
         p1:id="@+id/locationTxt"
@@ -80,7 +84,7 @@
         p1:src="@mipmap/ic_settings"
         p1:layout_row="9"
         p1:layout_column="0"
-        p1:visibility="visible"
+        p1:visibility="invisible"
         p1:layerType="none"
         p1:background="#00ffffff"
         p1:alpha="255" />
